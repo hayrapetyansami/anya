@@ -52,6 +52,34 @@ export default class App extends Component {
     });
   }
 
+  onToggleIncrease = (id) => {
+    this.setState(({ data }) => {
+      return {
+        data: data.map(item => {
+          if (item.id === id) {
+            return { ...item, increase: !item.increase };
+          } else {
+            return item;
+          }
+        })
+      }
+    });
+  }
+
+  onToggleRise = (id) => {
+    this.setState(({ data }) => {
+      return {
+        data: data.map(item => {
+          if (item.id === id) {
+            return { ...item, rise: !item.rise };
+          } else {
+            return item;
+          }
+        })
+      }
+    });
+  }
+
   render() {
     return (
       <div className="app">
@@ -64,7 +92,9 @@ export default class App extends Component {
 
         <EmployeesList
           data={this.state.data}
-          onDelete={id => this.onDeleteItem(id)}
+          onDelete={this.onDeleteItem}
+          onToggleIncrease={this.onToggleIncrease}
+          onToggleRise={this.onToggleRise}
         />
         <EmployeesAddForm />
       </div>

@@ -2,7 +2,7 @@ import EmployeesListItem from "../employees-list-item/EmployeesListItem";
 
 import "./employeesList.scss";
 
-export default function EmployeesList({ data, onDelete }) {
+export default function EmployeesList({ data, onDelete, onToggleIncrease, onToggleRise }) {
   const elements = data.map(item => {
     const { id, ...itemProps } = item;
     return (
@@ -10,6 +10,8 @@ export default function EmployeesList({ data, onDelete }) {
         key={id}
         {...itemProps}
         onDelete={() => onDelete(id)}
+        onToggleIncrease={() => onToggleIncrease(id)}
+        onToggleRise={() => onToggleRise(id)}
       />
     )
   });
