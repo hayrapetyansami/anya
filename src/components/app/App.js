@@ -1,3 +1,5 @@
+import { Component } from "react";
+
 import AppInfo from "../app-info/AppInfo";
 import AppFiler from "../app-filter/AppFilter";
 import SearchPanel from "../search-panel/SearchPanel";
@@ -7,42 +9,65 @@ import EmployeesAddForm from "../employees-add-form/EmployeesAddForm";
 import { v4 as uuidv4 } from 'uuid';
 
 import "./app.scss";
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [
+        {
+          id: uuidv4(),
+          name: "John Smith",
+          salary: 3000,
+          increase: false,
+          rise: false
+        },
+        {
+          id: uuidv4(),
+          name: "Alex Shepard",
+          salary: 2500,
+          increase: false,
+          rise: false
+        },
+        {
+          id: uuidv4(),
+          name: "Joe Johnson",
+          salary: 1420,
+          increase: false,
+          rise: false
+        },
+      ]
+    }
+  }
 
-function App() {
-  const data = [
-    {
-      id: uuidv4(),
-      name: "John Smith",
-      salary: 3000,
-      increase: false
-    },
-    {
-      id: uuidv4(),
-      name: "Alex Shepard",
-      salary: 2500,
-      increase: false
-    },
-    {
-      id: uuidv4(),
-      name: "Joe Johnson",
-      salary: 1420,
-      increase: false
-    },
-  ];
+  onDeleteItem = (id) => {
+    this.setState(({ data }) => {
+      // const index = data.findIndex(elem => elem.id === id);
 
-  return (
-    <div className="app">
-      <AppInfo/>
-      
-      <div className="search-panel">
-        <SearchPanel/>
-        <AppFiler />
+      // const before = data.slice(0, index);
+      // const after = data.slice(index + 1);
+
+      // const newState = [...before, ...after];
+
+      return { data: data.filter(item => item.id !== id) }
+    });
+  }
+
+  render() {
+    return (
+      <div className="app">
+        <AppInfo />
+
+        <div className="search-panel">
+          <SearchPanel />
+          <AppFiler />
+        </div>
+
+        <EmployeesList
+          data={this.state.data}
+          onDelete={id => this.onDeleteItem(id)}
+        />
+        <EmployeesAddForm />
       </div>
-
-      <EmployeesList data={data} />
-      <EmployeesAddForm/>
-    </div>
-  );
+    );
+  }
 }
-
-export default App;
