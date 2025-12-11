@@ -1,30 +1,60 @@
+import { Component } from "react";
 import "./employeesListItem.scss";
 
-export default function EmployeesListItem({ name, salary, increase }) {
-  return (
-    <li className={`list-group-item d-flex justify-content-between ${increase ? "increase" : ""}`}>
-      <span className="list-group-item-label">{name}</span>
-      <input type="text" className="list-group-item-input" defaultValue={salary + "$"} />
-      <div className="d-flex justify-content-center align-items-center">
-        <button
-          type="button"
-          className="btn-cookie btn-sm"
+export default class EmployeesListItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      increase: false,
+      rise: false
+    }
+  }
+
+  // onIncrease = () => {
+  //   this.setState(({ increase }) => ({ increase: !increase }));
+  //   // this.setState({
+  //   //   increase: !this.state.increase
+  //   // });
+  // }
+
+  // onRise = () => {
+  //   this.setState(({ rise }) => ({ rise: !rise }));
+  // }
+
+  onTrigger = (trigger) => {
+    this.setState((state) => ({ [trigger]: !state[trigger] }));
+  }
+
+  render() {
+    const { name, salary } = this.props;
+    const { increase, rise } = this.state;
+
+    return (
+      <li className={`list-group-item d-flex justify-content-between ${increase ? "increase" : ""} ${rise ? "liked" : ""}`}>
+        <span
+          onClick={() => this.onTrigger("rise")}
+          className="list-group-item-label"
         >
-          <i className="fas fa-cookie"></i>
-        </button>
-        <button
-          type="button"
-          className="btn-trash btn-sm"
-        >
-          <i className="fas fa-trash"></i>
-        </button>
-        <button
-          type="button"
-          className="btn-star btn-sm"
-        >
+          {name}
+        </span>
+        <input type="text" className="list-group-item-input" defaultValue={salary + "$"} />
+        <div className="d-flex justify-content-center align-items-center">
+          <button
+            type="button"
+            className="btn-cookie btn-sm"
+            onClick={() => this.onTrigger("increase")}
+          >
+            <i className="fas fa-cookie"></i>
+          </button>
+          <button
+            type="button"
+            className="btn-trash btn-sm"
+          >
+            <i className="fas fa-trash"></i>
+          </button>
           <i className="fas fa-star"></i>
-        </button>
-      </div>
-    </li>
-  );
+        </div>
+      </li>
+    );
+  }
 }

@@ -36,15 +36,17 @@
 .list-group-item .btn-trash {
   color: #e5383b;
 }
-.list-group-item .btn-star {
+.list-group-item .fa-star {
   color: #FFD700;
   opacity: 0;
   transform: translateX(30px);
+  transition: 0.3s ease;
 }
 
-.list-group-item.liked .btn-star {
+.list-group-item.liked .fa-star {
+  transition: 0.3s ease;
   opacity: 1;
-    transform: translateX(0px);
+  transform: translateX(0px);
 }
 
 .list-group-item.increase .list-group-item-label,
